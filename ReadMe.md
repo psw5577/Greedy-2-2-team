@@ -117,3 +117,5 @@ public class Fractional {
     }
 }
 ```
+## 4. 결과
+<img width="419" alt="스크린샷 2021-04-15 오전 1 43 10" src="https://user-images.githubusercontent.com/80511335/114748721-26182c00-9d8d-11eb-9932-baa618abd740.png">
