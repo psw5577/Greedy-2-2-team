@@ -126,3 +126,42 @@ public class Fractional {
 예를 들어 위 부분 배낭 문제에서 예시로 사용된 가치 5, 60, 10, 75에 무게 50, 10, 25, 15인 경우에 이 문제가 배낭 문제였다면 
 앞서 결과로 나타난 마지막 부분인 무게 15에 가치6이라는 부분이 생기지 않는다.
  이 무게 15에 가치 6이라는 것은 가치10에 무게 25인 물건을 분할해서 나온 것이기 때문.
+여기까지는 단순한데, 물건이 분할되지 않아 배낭 문제가 되었다고 치고, 코드를 변형하여 간단히 해결해 보려고 했으나 좀처럼 잘 되지 않았다.
+위 부분 배낭 문제를 해결한 코드는 무게 대비 가치가 가장 높은 물건을 먼저 가져오므로 처음에는 이것이 배낭 문제에도 적용이 될 줄 알고
+ if ((C-W) != 0) {
+            double a = (double) (C-W)/X[0];
+            L[t][0] = X[0] * a;
+            L[t][1] = X[1] * a;
+
+            V += (X[1] * a);
+        }
+        return V;
+    }
+이 부분을 지우면 해결될 줄 알았다. 하지만 이 방법에는 문제가 있었다.
+앞선 예시를 사용하는 경우에는 별 문제가 없을 수 있겠으나, 예를 들어 만약 가치10에 무게 25인 물건 대신 가치 80에 무게 16인 물건이 포함되어 있었다고 한다면 
+가장 먼저 최적의 무게 대비 가치를 가진 가치 60에 무게 10인 물건을 가져오는 순간 최적의 해와는 거리가 멀어지는 결과가 나오기 때문이다.
+
+## 6. 배낭 문제 해결
+따라서 부분 배낭 문제를 생각하지 않고 그저 배낭 문제를 풀어보려고 했는데, 브루트 포스 외에 다른 방법을 알지 못해 이번에도 브루트 포스 방법으로 문제를 풀게 되었다.
+import java.util.*;
+public class Fractional {
+    int Re_knapsack(int[] v, int[] w, int c, int current) {
+        if (c <= 0 || current >= v.length)  return 0;
+        int v1 = 0;
+        if( c >= w[current] )
+            v1 = v[current] + Re_knapsack(v, w, c - w[current], current + 1);
+        int v2 = Re_knapsack(v, w, c, current + 1);
+        return Math.max(v1, v2);
+    }
+    int nonFractal(int[] v, int[] w, int c) {
+        return this.Re_knapsack(v, w, c, 0);
+    }
+    public static void main(String[] args) {
+        Fractional X = new Fractional();
+
+        int[] v = {5, 60, 80, 75};
+        int[] w = {50, 10, 16, 15};
+        int maxV = X.nonFractal(v, w, 40);
+        System.out.println("총 이익: " + maxV);
+    }
+}
