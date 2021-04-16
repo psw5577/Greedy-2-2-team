@@ -156,7 +156,7 @@ if ((C-W) != 0){
 
 ```
 import java.util.*;
-public class Fractional {
+public class nonFractional {
     int Re_knapsack(int[] v, int[] w, int c, int current) {
         if (c <= 0 || current >= v.length)  return 0;
         int v1 = 0;
@@ -169,7 +169,7 @@ public class Fractional {
         return this.Re_knapsack(v, w, c, 0);
     }
     public static void main(String[] args) {
-        Fractional X = new Fractional();
+        nonFractional X = new nonFractional();
 
         int[] v = {5, 60, 80, 75};
         int[] w = {50, 10, 16, 15};
